@@ -2,9 +2,9 @@
   <div class="card">
     <div class="left">
       <div class="content">
-        <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}}</span></h3>
-        <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}}</span></h3>
-        <h3>Comments : <span class="highlight"> {{question.comments.length}}</span></h3>
+        <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}} </span> <span @click="upvote">⬆️</span></h3>
+        <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}} </span> <span @click="downvote">⬇️</span></h3>
+        <h3>Comments : <span class="highlight"> {{question.comments.length}} </span></h3>
       </div>
     </div>
     <div>

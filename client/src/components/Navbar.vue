@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/2000px-Stack_Overflow_logo.svg.png" alt="">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/2000px-Stack_Overflow_logo.svg.png" alt="" @click="homePage">
     </div>
     <div class="container">
       <h3 v-if="!isLogin">login</h3>
@@ -24,6 +24,12 @@ export default {
   methods: {
     logout () {
       store.dispatch('logout')
+    },
+    homePage () {
+      this.$store.dispatch('getQuestions')
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 500)
     }
   }
 }
@@ -39,6 +45,7 @@ export default {
   width: 150px;
   height: auto;
   margin-top: 4%;
+  cursor: pointer;
 }
 .container h3 {
   display: inline-block;
