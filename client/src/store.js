@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
-    userData: {},
+    userData: '',
     questions: []
   },
   mutations: {
@@ -20,6 +20,7 @@ export default new Vuex.Store({
     },
     logout (state) {
       state.isLogin = false
+      state.userData = ''
     },
     putQuestions (state, data) {
       state.questions = data
@@ -50,7 +51,7 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          context.commit('getLoginData', response.data.data)
+          context.commit('getLoginData', response.data.data._id)
           context.commit('changeLoginStatus')
         })
         .catch(err => {

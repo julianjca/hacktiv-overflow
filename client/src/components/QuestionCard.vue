@@ -5,21 +5,26 @@
         <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}}</span></h3>
         <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}}</span></h3>
         <h3>Comments : <span class="highlight"> {{question.comments.length}}</span></h3>
-
       </div>
     </div>
     <div>
       <h2>{{question.title}}</h2>
       <p>{{question.body}}</p>
+      <h3 class="buttondelete" v-if="question.user._id === userId">DELETE</h3>
+      <h3 class="buttonupdate" v-if="question.user._id === userId">UPDATE</h3>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
   name: 'QuestionCard',
-  props: ['question']
+  props: ['question'],
+  computed: {
+    userId () {
+      return this.$store.state.userData
+    }
+  }
 }
 </script>
 
@@ -70,5 +75,27 @@ export default {
 .highlight {
   color: rgb(255, 172, 19);
   font-weight: 700;
+}
+.buttondelete {
+  color: #ffff !important;
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.buttonupdate {
+  color: #ffff !important;
+  background-color: green;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 </style>

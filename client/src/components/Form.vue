@@ -18,6 +18,9 @@ export default {
         password: this.password
       }
       store.dispatch('sendLogin', obj)
+      setTimeout(() => {
+        store.dispatch('checkToken')
+      }, 1000)
     }
   },
   data () {
