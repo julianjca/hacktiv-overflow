@@ -4,15 +4,28 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/2000px-Stack_Overflow_logo.svg.png" alt="">
     </div>
     <div class="container">
-      <h3>login</h3>
-      <h3 id="signup">register</h3>
+      <h3 v-if="!isLogin">login</h3>
+      <h3 v-if="!isLogin" id="signup">register</h3>
+      <h3 v-if="isLogin" id="signup" @click="logout">logout</h3>
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/store.js'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  computed: {
+    isLogin: function () {
+      return this.$store.state.isLogin
+    }
+  },
+  methods: {
+    logout () {
+      store.dispatch('logout')
+    }
+  }
 }
 </script>
 
@@ -37,6 +50,7 @@ export default {
   background-color: #1088ed;
   padding: 5px 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .container {
   margin-right: 100px;

@@ -16,6 +16,9 @@ export default new Vuex.Store({
     },
     getLoginData (state, data) {
       state.userData = data
+    },
+    logout (state) {
+      state.isLogin = false
     }
   },
   actions: {
@@ -49,6 +52,10 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    logout (context) {
+      localStorage.removeItem('token')
+      context.commit('logout')
     }
   }
 })
