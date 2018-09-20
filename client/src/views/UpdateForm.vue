@@ -3,7 +3,7 @@
     <h2>Let's Ask Some Questions</h2>
     <input type="text" placeholder="title" v-model="title">
     <textarea type="text" placeholder="put details here" v-model="body"></textarea>
-    <h3 @click="createQuestion">submit</h3>
+    <h3 @click="updateQuestion">submit</h3>
   </div>
 </template>
 
@@ -11,12 +11,13 @@
 import axios from 'axios'
 import store from '@/store.js'
 export default {
-  name: 'QuestionForm',
+  name: 'UpdateForm',
+  props: ['id'],
   methods: {
-    createQuestion () {
+    updateQuestion () {
       let self = this
       axios({
-        method: 'POST',
+        method: 'PUT',
         headers: {
           token: localStorage.getItem('token')
         },
@@ -24,11 +25,11 @@ export default {
           title: this.title,
           body: this.body
         },
-        url: `http://localhost:3000/questions`
+        url: `http://localhost:3000/questions/${this.id}`
       })
         .then(response => {
           console.log(response)
-          self.$emit('closeForm')
+          self.$router.push('/')
           store.dispatch('getQuestions')
         })
         .catch(err => {

@@ -8,10 +8,10 @@
       </div>
     </div>
     <div>
-      <h2>{{question.title}}</h2>
+      <h2 @click="showQuestion">{{question.title}}</h2>
       <p>{{question.body}}</p>
       <h3 class="buttondelete" v-if="question.user._id === userId" @click="removeQuestion">DELETE</h3>
-      <h3 class="buttonupdate" v-if="question.user._id === userId">UPDATE</h3>
+      <h3 class="buttonupdate" v-if="question.user._id === userId" @click="update">UPDATE</h3>
     </div>
   </div>
 </template>
@@ -28,6 +28,15 @@ export default {
     }
   },
   methods: {
+    update () {
+      console.log('hehehe')
+      this.$router.push(`/update/${this.question._id}`)
+    },
+
+    showQuestion () {
+      this.$router.push(`/question/${this.question._id}`)
+    },
+
     removeQuestion () {
       // let self = this
       axios({

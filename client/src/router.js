@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import UpdateForm from './views/UpdateForm.vue'
+import ShowQuestion from './views/ShowQuestion.vue'
 
 Vue.use(Router)
 
@@ -12,6 +14,18 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/update/:id',
+      name: 'update',
+      props: true,
+      component: UpdateForm
+    },
+    {
+      path: '/question/:id',
+      name: 'question',
+      props: true,
+      component: ShowQuestion
     }
   ]
 })
