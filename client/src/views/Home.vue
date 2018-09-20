@@ -71,4 +71,10 @@ h3 {
   text-align: center;
   /* margin-bottom: -30px; */
 }
+.home {
+  width: 100%;
+  height: 100%;
+  min-height: 660px;
+  padding-bottom: 5%;
+}
 </style>

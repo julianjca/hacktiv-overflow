@@ -10,19 +10,42 @@
     <div>
       <h2>{{question.title}}</h2>
       <p>{{question.body}}</p>
-      <h3 class="buttondelete" v-if="question.user._id === userId">DELETE</h3>
+      <h3 class="buttondelete" v-if="question.user._id === userId" @click="removeQuestion">DELETE</h3>
       <h3 class="buttonupdate" v-if="question.user._id === userId">UPDATE</h3>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import store from '@/store'
 export default {
   name: 'QuestionCard',
   props: ['question'],
   computed: {
     userId () {
       return this.$store.state.userData
+    }
+  },
+  methods: {
+    removeQuestion () {
+      // let self = this
+      axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/questions/${this.question._id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(response => {
+          console.log(response)
+          setTimeout(() => {
+            store.dispatch('getQuestions')
+          }, 500)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
