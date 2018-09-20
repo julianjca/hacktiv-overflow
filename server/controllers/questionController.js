@@ -15,25 +15,25 @@ module.exports = {
         _id : data.user
       },{
         $push : {
-          articles : data._id
+          questions : data._id
         }
       })
       .then(response=>{
         res.status(200).json({
-          msg : "success adding article",
+          msg : "success adding question",
           data : data
         });
       })
       .catch(err=>{
         res.status(500).json({
-          msg : "failed adding article",
+          msg : "failed adding question",
           err : err
         });
       });
     })
     .catch(err=>{
       res.status(500).json({
-        msg : "failed adding article",
+        msg : "failed adding question",
         err : err
       });
     });
@@ -46,13 +46,13 @@ module.exports = {
     .then(data=>{
       data.remove();
       res.status( 200 ).json({
-        msg : `success deleting article by id ${req.params.id}`,
+        msg : `success deleting question by id ${req.params.id}`,
         data : data
       });
     })
     .catch(err=>{
       res.status(500).json({
-        msg : "failed deleting article",
+        msg : "failed deleting question",
         err : err
       });
     });
@@ -72,20 +72,20 @@ module.exports = {
       })
       .then(data=>{
         res.status( 200 ).json({
-        msg : `success updating article by id ${req.params.id}`,
+        msg : `success updating question by id ${req.params.id}`,
         data : data
       });
       })
       .catch(err=>{
         res.status(500).json({
-          msg : "failed updating article",
+          msg : "failed updating question",
           err : err
         });
       });
     })
     .catch(err=>{
       res.status(500).json({
-        msg : "failed deleting article",
+        msg : "failed deleting question",
         err : err
       });
     });
@@ -105,13 +105,13 @@ module.exports = {
     .exec()
     .then(data=>{
       res.status( 200 ).json({
-        msg : 'success finding articles',
+        msg : 'success finding questions',
         data : data
       });
     })
     .catch(err=>{
       res.status(500).json({
-        msg : "failed finding article",
+        msg : "failed finding questions",
         err : err
       });
     });
@@ -132,15 +132,14 @@ module.exports = {
     .populate('user')
     .exec()
     .then(data=>{
-      console.log(data);
       res.status( 200 ).json({
-        msg : 'success finding aricle',
+        msg : 'success finding question',
         data : data
       });
     })
     .catch(err=>{
       res.status(500).json({
-        msg : "failed finding article",
+        msg : "failed finding question",
         err : err
       });
     });

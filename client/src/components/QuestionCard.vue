@@ -2,13 +2,15 @@
   <div class="card">
     <div class="left">
       <div class="content">
-        <h3>Upvotes :</h3>
-        <h3>Downvotes :</h3>
+        <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}}</span></h3>
+        <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}}</span></h3>
+        <h3>Comments : <span class="highlight"> {{question.comments.length}}</span></h3>
+
       </div>
     </div>
     <div>
-      <h2>halo</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum elementum dictum. Sed id mattis est. Curabitur semper lobortis iaculis. Nullam vulputate ullamcorper sem ac fringilla. Ut scelerisque, dui nec finibus suscipit, augue turpis maximus orci, sit amet porttitor augue quam quis purus. Morbi pretium, lectus ac vestibulum placerat, libero nisl viverra leo, sed gravida sapien leo in dolor. Nullam id fermentum mauris, quis hendrerit risus. Integer ornare risus tincidunt vulputate pharetra. Donec a luctus neque. Etiam nisl augue, mattis et ante sit amet, tristique rutrum metus.</p>
+      <h2>{{question.title}}</h2>
+      <p>{{question.body}}</p>
     </div>
 
   </div>
@@ -16,7 +18,8 @@
 
 <script>
 export default {
-  name: 'QuestionCard'
+  name: 'QuestionCard',
+  props: ['question']
 }
 </script>
 
@@ -40,10 +43,12 @@ export default {
 .card h3 {
   display: block;
   font-size: 12px;
+  color: rgb(75, 75, 75);
 }
 
 .card h2 {
-  font-size: 16px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .card p {
@@ -51,6 +56,7 @@ export default {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  color: rgb(75, 75, 75);
 }
 
 .left {
@@ -58,6 +64,11 @@ export default {
 }
 
 .content {
-  margin-top: 40%;
+  margin-top: 38%;
+}
+
+.highlight {
+  color: rgb(255, 172, 19);
+  font-weight: 700;
 }
 </style>

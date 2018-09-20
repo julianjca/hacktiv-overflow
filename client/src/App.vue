@@ -15,6 +15,7 @@ export default {
   },
   created () {
     store.dispatch('checkToken')
+    store.dispatch('getQuestions')
   }
 }
 </script>

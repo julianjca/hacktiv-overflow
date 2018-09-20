@@ -33,11 +33,12 @@ export default {
 .navbar {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  border-bottom: 0.5px solid rgb(187, 187, 187);
 }
 .navbar img {
-  width: 200px;
+  width: 150px;
   height: auto;
-  margin-top: 2%;
+  margin-top: 4%;
 }
 .container h3 {
   display: inline-block;

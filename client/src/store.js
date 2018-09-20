@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
-    userData: {}
+    userData: {},
+    questions: []
   },
   mutations: {
     changeLoginStatus (state) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     logout (state) {
       state.isLogin = false
+    },
+    putQuestions (state, data) {
+      state.questions = data
     }
   },
   actions: {
@@ -56,6 +60,18 @@ export default new Vuex.Store({
     logout (context) {
       localStorage.removeItem('token')
       context.commit('logout')
+    },
+    getQuestions (context) {
+      axios({
+        method: 'GET',
+        url: `${baseUrl}questions`
+      })
+        .then(response => {
+          context.commit('putQuestions', response.data.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 })
