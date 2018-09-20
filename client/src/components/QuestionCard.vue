@@ -2,8 +2,8 @@
   <div class="card">
     <div class="left">
       <div class="content">
-        <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}} </span> <span @click="upvote">⬆️</span></h3>
-        <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}} </span> <span @click="downvote">⬇️</span></h3>
+        <h3>Upvotes : <span class="highlight"> {{question.upvotes.length}} </span> <span @click="upvote" v-if="!alreadyUpvote && isLogin">⬆️</span></h3>
+        <h3>Downvotes : <span class="highlight"> {{question.downvotes.length}} </span> <span @click="downvote" v-if="!alreadyDownvote && isLogin">⬇️</span></h3>
         <h3>Comments : <span class="highlight"> {{question.comments.length}} </span></h3>
       </div>
     </div>
@@ -21,13 +21,76 @@ import axios from 'axios'
 import store from '@/store'
 export default {
   name: 'QuestionCard',
+  created () {
+    let self = this
+    for (let i = 0; i < self.question.upvotes.length; i++) {
+      if (self.question.upvotes[i] === self.userId) {
+        self.alreadyUpvote = true
+      }
+    }
+
+    for (let i = 0; i < self.question.downvotes.length; i++) {
+      if (self.question.downvotes[i] === self.userId) {
+        self.alreadyDownvote = true
+      }
+    }
+  },
+  data () {
+    return {
+      alreadyUpvote: false,
+      alreadyDownvote: false
+    }
+  },
   props: ['question'],
   computed: {
     userId () {
       return this.$store.state.userData
+    },
+    isLogin () {
+      return this.$store.state.isLogin
     }
   },
   methods: {
+    upvote () {
+      let self = this
+      axios({
+        method: 'PUT',
+        url: `http://localhost:3000/questions/upvote/${this.question._id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(response => {
+          console.log(response)
+          self.alreadyUpvote = true
+          setTimeout(() => {
+            store.dispatch('getQuestions')
+          }, 500)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    downvote () {
+      let self = this
+      axios({
+        method: 'PUT',
+        url: `http://localhost:3000/questions/downvote/${this.question._id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(response => {
+          console.log(response)
+          self.alreadyDownvote = true
+          setTimeout(() => {
+            store.dispatch('getQuestions')
+          }, 500)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     update () {
       console.log('hehehe')
       this.$router.push(`/update/${this.question._id}`)
