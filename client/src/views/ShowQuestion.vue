@@ -4,7 +4,7 @@
     <p>{{data[0].body}}</p>
     <textarea placeholder="write your comment here" name="" id="writeComment" v-model="comment"></textarea>
     <button @click="sendComment">Submit Comment</button>
-    <comment-card v-for="(comment,index) in comments" :key="index" :comment="comment"></comment-card>
+    <comment-card v-for="(comment,index) in comments" :key="index" :comment="comment" @fetch-comment="fetchComment"></comment-card>
   </div>
 </template>
 
@@ -50,8 +50,28 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+
+    fetchComment () {
+      console.log('masuk')
+      let self = this
+      axios({
+        method: 'GET',
+        url: `http://localhost:3000/questions/${this.id}`
+      })
+        .then(response => {
+          console.log(response)
+          console.log(response.data.data[0].comments)
+          setTimeout(() => {
+            self.comments = response.data.data[0].comments
+          }, 1000)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
+
   data () {
     return {
       data: [],

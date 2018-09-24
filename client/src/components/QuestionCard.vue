@@ -35,12 +35,14 @@ export default {
       }
     }
   },
+
   data () {
     return {
       alreadyUpvote: false,
       alreadyDownvote: false
     }
   },
+
   props: ['question'],
   computed: {
     userId () {
@@ -50,6 +52,7 @@ export default {
       return this.$store.state.isLogin
     }
   },
+
   methods: {
     upvote () {
       let self = this

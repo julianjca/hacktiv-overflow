@@ -119,5 +119,78 @@ module.exports = {
         err : err
       });
     });
+  },
+
+  upvote : function(req,res){
+    console.log(req.userData)
+    Comment.findOne({
+      _id : req.params.id
+    })
+    .then(data=>{
+      Comment.updateOne({
+        _id : req.params.id
+      },{
+        $set: {
+        comment : req.body.comment || data.comment
+      },
+        $push : {
+          upvotes : req.userData.id
+        }
+      })
+      .then(data=>{
+        res.status( 200 ).json({
+        msg : `success updating question by id ${req.params.id}`,
+        data : data
+      });
+      })
+      .catch(err=>{
+        res.status(500).json({
+          msg : "failed upvoting question",
+          err : err
+        });
+      });
+    })
+    .catch(err=>{
+      res.status(500).json({
+        msg : "failed upvoting question",
+        err : err
+      });
+    });
+  },
+
+  downvote : function(req,res){
+    Comment.findOne({
+      _id : req.params.id
+    })
+    .then(data=>{
+      Comment.updateOne({
+        _id : req.params.id
+      },{
+        $set: {
+        title : req.body.comment || data.comment
+      },
+        $push : {
+          downvotes : req.userData.id
+        }
+      })
+      .then(data=>{
+        res.status( 200 ).json({
+        msg : `success updating comment by id ${req.params.id}`,
+        data : data
+      });
+      })
+      .catch(err=>{
+        res.status(500).json({
+          msg : "failed updating comment",
+          err : err
+        });
+      });
+    })
+    .catch(err=>{
+      res.status(500).json({
+        msg : "failed deleting comment",
+        err : err
+      });
+    });
   }
 };
