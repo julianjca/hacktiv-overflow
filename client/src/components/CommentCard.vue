@@ -6,7 +6,7 @@
     <h4>Downvotes : <span class="highlight"> {{commentContent.downvotes.length}} </span> <span @click="downvote" v-if="!alreadyDownvote && isLogin && userId!==comment.user._id">⬇️</span></h4>
     <div>
       <h3 class="buttondelete" v-if="comment.user._id === userId" @click="removeComment">DELETE</h3>
-      <!-- <h3 class="buttonupdate" v-if="comment.user._id === userId" @click="update">UPDATE</h3> -->
+      <h3 class="buttonupdate" v-if="comment.user._id === userId" @click="update">UPDATE</h3>
     </div>
 </div>
 
@@ -63,6 +63,7 @@ export default {
           console.log(err)
         })
     },
+
     removeComment () {
       let self = this
       axios({
@@ -82,6 +83,10 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+
+    update () {
+      this.$router.push('/comments/' + this.comment._id)
     }
   },
 
@@ -161,6 +166,18 @@ p {
 .buttondelete {
   color: #ffff !important;
   background-color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.buttonupdate {
+  color: #ffff !important;
+  background-color: green;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;

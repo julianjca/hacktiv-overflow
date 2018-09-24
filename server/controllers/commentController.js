@@ -72,6 +72,7 @@ module.exports = {
   },
 
   update : function(req,res){
+    console.log('masookkkk')
     Comment.findOne({
       _id : req.params.id
     })
@@ -79,8 +80,7 @@ module.exports = {
       Comment.updateOne({
         _id : req.params.id
       },{$set: {
-        title : req.body.title || data.title,
-        body : req.body.body || data.body,
+        comment : req.body.comment || data.comment
       }})
       .then(data=>{
         res.status( 200 ).json({

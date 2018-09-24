@@ -5,6 +5,7 @@ import UpdateForm from './views/UpdateForm.vue'
 import ShowQuestion from './views/ShowQuestion.vue'
 import AllUsers from './views/AllUsers.vue'
 import ShowUser from './views/ShowUser.vue'
+import UpdateComment from './views/UpdateComment.vue'
 
 Vue.use(Router)
 
@@ -39,6 +40,12 @@ export default new Router({
       name: 'showUser',
       props: true,
       component: ShowUser
+    },
+    {
+      path: '/comments/:id',
+      name: 'UpdateComment',
+      props: true,
+      component: UpdateComment
     }
   ]
 })
