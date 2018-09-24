@@ -1,16 +1,21 @@
 <template>
-  <div class="usercard">
+  <div class="usercard" @click="goToUser">
     <h2>{{user.name}}</h2>
     <h4>Number of Question : {{user.questions.length}}</h4>
     <h4>Number of Comments : {{user.comments.length}}</h4>
-
   </div>
 </template>
 
 <script>
 export default {
   name: 'UsersCard',
-  props: ['user']
+  props: ['user'],
+  methods: {
+    goToUser () {
+      // const id = this.user._id
+      this.$router.push({ name: `showUser`, params: { user: this.user } })
+    }
+  }
 }
 </script>
 
