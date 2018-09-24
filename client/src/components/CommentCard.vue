@@ -139,13 +139,17 @@ h4 {
 }
 
 .commentBox {
-  border: 0.5px solid rgb(195, 195, 195);
+  border: 0.5px solid rgb(223, 223, 223);
   /* border-bottom: 0.5px solid rgb(195, 195, 195); */
   width: 60%;
   min-height: 100px;
   margin-left: 10%;
   margin-top: 5%;
   margin-bottom: 5%;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 5px 4px #c0c0c09d;
+  -moz-box-shadow: 0px 5px 4px #c0c0c09d;
+  box-shadow: 0px 5px 4px #c0c0c09d;
 }
 
 p {
@@ -164,5 +168,9 @@ p {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+span {
+  cursor: pointer;
 }
 </style>

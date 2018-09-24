@@ -2,8 +2,8 @@
   <div class="card">
     <h2>{{data[0].title}}</h2>
     <p>{{data[0].body}}</p>
-    <textarea placeholder="write your comment here" name="" id="writeComment" v-model="comment"></textarea>
-    <button @click="sendComment">Submit Comment</button>
+    <textarea placeholder="write your comment here" name="" id="writeComment" v-model="comment" v-if="isLogin"></textarea>
+    <button @click="sendComment" v-if="isLogin">Submit Comment</button>
     <comment-card v-for="(comment,index) in comments" :key="index" :comment="comment" @fetch-comment="fetchComment"></comment-card>
   </div>
 </template>
@@ -14,6 +14,11 @@ import CommentCard from '@/components/CommentCard.vue'
 // import store from '@/store'
 export default {
   name: 'ShowQuestion',
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    }
+  },
   components: {
     CommentCard
   },

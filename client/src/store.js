@@ -9,11 +9,14 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     userData: '',
-    questions: []
+    questions: [],
+    error: '',
+    users: []
   },
   mutations: {
     changeLoginStatus (state) {
       state.isLogin = true
+      state.error = ''
     },
     getLoginData (state, data) {
       state.userData = data
@@ -24,8 +27,15 @@ export default new Vuex.Store({
     },
     putQuestions (state, data) {
       state.questions = data
+    },
+    senderror (state) {
+      state.error = `username/password is wrong`
+    },
+    putUsers (state, payload) {
+      state.users = payload
     }
   },
+
   actions: {
     sendLogin (context, obj) {
       axios({
@@ -39,8 +49,10 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err)
+          context.commit('senderror')
         })
     },
+
     checkToken (context) {
       const token = localStorage.getItem('token')
       axios({
@@ -58,10 +70,12 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+
     logout (context) {
       localStorage.removeItem('token')
       context.commit('logout')
     },
+
     getQuestions (context) {
       axios({
         method: 'GET',
@@ -69,6 +83,19 @@ export default new Vuex.Store({
       })
         .then(response => {
           context.commit('putQuestions', response.data.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    getUsers (context) {
+      axios({
+        method: 'GET',
+        url: `${baseUrl}users`
+      })
+        .then(response => {
+          context.commit('putUsers', response.data.data)
         })
         .catch(err => {
           console.log(err)

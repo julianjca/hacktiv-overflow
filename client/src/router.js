@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import UpdateForm from './views/UpdateForm.vue'
 import ShowQuestion from './views/ShowQuestion.vue'
+import AllUsers from './views/AllUsers.vue'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       name: 'question',
       props: true,
       component: ShowQuestion
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: AllUsers
     }
   ]
 })

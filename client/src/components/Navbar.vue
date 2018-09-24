@@ -4,7 +4,8 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/2000px-Stack_Overflow_logo.svg.png" alt="" @click="homePage">
     </div>
     <div class="container">
-      <h3 v-if="!isLogin">login</h3>
+      <!-- <h3 v-if="!isLogin">login</h3> -->
+      <h3 @click="goToUserPage">users</h3>
       <h3 v-if="!isLogin" id="signup">register</h3>
       <h3 v-if="isLogin" id="signup" @click="logout">logout</h3>
     </div>
@@ -24,12 +25,16 @@ export default {
   methods: {
     logout () {
       store.dispatch('logout')
+      this.$router.push('/')
     },
     homePage () {
       this.$store.dispatch('getQuestions')
       setTimeout(() => {
         this.$router.push('/')
       }, 500)
+    },
+    goToUserPage () {
+      this.$router.push('/users')
     }
   }
 }
@@ -52,6 +57,7 @@ export default {
   padding-right: 50px;
   text-align: center;
   color: #1088ed;
+  cursor: pointer;
 }
 #signup {
   color: #fff;

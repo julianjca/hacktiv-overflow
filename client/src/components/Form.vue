@@ -1,6 +1,7 @@
 <template>
   <div class="form">
     <h2>Let's Login to Your Account</h2>
+    <h4>{{errMess}}</h4>
     <input type="email" placeholder="example@mail.com" v-model="email">
     <input type="password" placeholder="password" v-model="password">
     <h3 @click="sendLogin">submit</h3>
@@ -28,6 +29,11 @@ export default {
     return {
       email: '',
       password: ''
+    }
+  },
+  computed: {
+    errMess () {
+      return this.$store.state.error
     }
   }
 }
@@ -64,5 +70,8 @@ export default {
 }
 .form h2 {
   color: #ffffff;
+}
+h4 {
+  color: rgb(255, 70, 70);
 }
 </style>
