@@ -70,7 +70,7 @@ module.exports = {
 
   findAll : function(req,res){
     User.find({})
-    .populate('articles')
+    .populate('questions')
     .populate('comments')
     .exec()
     .then(data=>{

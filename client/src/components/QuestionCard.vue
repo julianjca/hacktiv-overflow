@@ -92,7 +92,6 @@ export default {
         })
     },
     update () {
-      console.log('hehehe')
       this.$router.push(`/update/${this.question._id}`)
     },
 

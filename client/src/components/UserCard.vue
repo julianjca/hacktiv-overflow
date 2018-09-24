@@ -12,7 +12,6 @@ export default {
   props: ['user'],
   methods: {
     goToUser () {
-      // const id = this.user._id
       this.$router.push({ name: `showUser`, params: { user: this.user } })
     }
   }
