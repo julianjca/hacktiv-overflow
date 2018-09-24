@@ -64,7 +64,7 @@ export default {
           console.log(response.data.data[0].comments)
           setTimeout(() => {
             self.comments = response.data.data[0].comments
-          }, 1000)
+          }, 300)
         })
         .catch(err => {
           console.log(err)

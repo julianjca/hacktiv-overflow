@@ -4,6 +4,10 @@
     <p>{{comment.comment}}</p>
     <h4>Upvotes : <span class="highlight"> {{commentContent.upvotes.length}} </span> <span @click="upvote" v-if="!alreadyUpvote && isLogin && userId!==comment.user._id">⬆️</span></h4>
     <h4>Downvotes : <span class="highlight"> {{commentContent.downvotes.length}} </span> <span @click="downvote" v-if="!alreadyDownvote && isLogin && userId!==comment.user._id">⬇️</span></h4>
+    <div>
+      <h3 class="buttondelete" v-if="comment.user._id === userId" @click="removeComment">DELETE</h3>
+      <!-- <h3 class="buttonupdate" v-if="comment.user._id === userId" @click="update">UPDATE</h3> -->
+    </div>
 </div>
 
 </template>
@@ -50,6 +54,26 @@ export default {
         .then(response => {
           console.log(response)
           self.alreadyDownvote = true
+          setTimeout(() => {
+            store.dispatch('getQuestions')
+            self.$emit('fetch-comment')
+          }, 500)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    removeComment () {
+      let self = this
+      axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/comments/${this.comment._id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(response => {
+          console.log(response)
           setTimeout(() => {
             store.dispatch('getQuestions')
             self.$emit('fetch-comment')
@@ -128,5 +152,17 @@ p {
   text-align: left;
   margin-left: 10%;
   font-size: 12px;
+}
+
+.buttondelete {
+  color: #ffff !important;
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 </style>
