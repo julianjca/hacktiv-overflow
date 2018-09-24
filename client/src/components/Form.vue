@@ -19,6 +19,7 @@ export default {
       }
       store.dispatch('sendLogin', obj)
       setTimeout(() => {
+        store.dispatch('getQuestions')
         store.dispatch('checkToken')
       }, 1000)
     }
