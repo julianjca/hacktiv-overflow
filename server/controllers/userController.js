@@ -1,8 +1,22 @@
 const User = require('../models/user');
-const mongodb = require('mongodb');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const axios = require('axios');
+const kue = require('kue')
+  , queue = kue.createQueue();
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'qerjaworkspace@gmail.com',
+    pass: 'qerja1234'
+    }
+ });
+ const mailOptions = {
+  from: 'sender@email.com', // sender address
+  to: 'to@email.com', // list of receivers
+  subject: 'Subject of your email', // Subject line
+  html: '<p>Your html here</p>'// plain text body
+};
 
 module.exports = {
   create : function(req,res){
@@ -13,6 +27,13 @@ module.exports = {
     }
     User.create(data)
     .then(data=>{
+      const job = queue.create('email', {
+        subject: `welcome to Hacktiv Overflow, ${data.name}!`
+      , to: data.email
+      , template: 'welcome-email'
+      }).save( function(err){
+        if( !err ) console.log( job.id );
+      });
       res.status(200).json({
         msg : "success registering user",
         data : data

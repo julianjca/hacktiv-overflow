@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -13,7 +13,10 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
+    "kue": "^0.11.6",
     "mongoose": "^5.2.16",
+    "node-cron": "^2.0.1",
+    "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4"
   }
 }

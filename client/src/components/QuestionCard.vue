@@ -61,7 +61,6 @@ export default {
         }
       })
         .then(response => {
-          console.log(response)
           self.alreadyUpvote = true
           setTimeout(() => {
             store.dispatch('getQuestions')

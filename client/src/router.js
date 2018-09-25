@@ -6,6 +6,7 @@ import ShowQuestion from './views/ShowQuestion.vue'
 import AllUsers from './views/AllUsers.vue'
 import ShowUser from './views/ShowUser.vue'
 import UpdateComment from './views/UpdateComment.vue'
+import Register from './views/Register.vue'
 
 Vue.use(Router)
 
@@ -46,6 +47,12 @@ export default new Router({
       name: 'UpdateComment',
       props: true,
       component: UpdateComment
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      props: true,
+      component: Register
     }
   ]
 })

@@ -6,7 +6,7 @@
     <div class="container">
       <!-- <h3 v-if="!isLogin">login</h3> -->
       <h3 @click="goToUserPage">users</h3>
-      <h3 v-if="!isLogin" id="signup">register</h3>
+      <h3 v-if="!isLogin" id="signup" @click="goToRegister">register</h3>
       <h3 v-if="isLogin" id="signup" @click="logout">logout</h3>
     </div>
   </div>
@@ -35,6 +35,9 @@ export default {
     },
     goToUserPage () {
       this.$router.push('/users')
+    },
+    goToRegister () {
+      this.$router.push('/register')
     }
   }
 }
