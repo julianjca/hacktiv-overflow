@@ -54,7 +54,8 @@ module.exports = {
 
   remove : function(req,res){
     Comment.findOne({
-      _id : req.params.id
+      _id : req.params.id,
+      user : req.userData.id
     })
     .then(data=>{
       data.remove();
@@ -72,9 +73,9 @@ module.exports = {
   },
 
   update : function(req,res){
-    console.log('masookkkk')
     Comment.findOne({
-      _id : req.params.id
+      _id : req.params.id,
+      user : req.userData.id
     })
     .then(data=>{
       Comment.updateOne({
