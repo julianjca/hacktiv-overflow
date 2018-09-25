@@ -8,15 +8,10 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'qerjaworkspace@gmail.com',
-    pass: 'qerja1234'
+    pass: 'Qerja1234'
     }
  });
- const mailOptions = {
-  from: 'sender@email.com', // sender address
-  to: 'to@email.com', // list of receivers
-  subject: 'Subject of your email', // Subject line
-  html: '<p>Your html here</p>'// plain text body
-};
+
 
 module.exports = {
   create : function(req,res){
@@ -29,11 +24,40 @@ module.exports = {
     .then(data=>{
       const job = queue.create('email', {
         subject: `welcome to Hacktiv Overflow, ${data.name}!`
-      , to: data.email
+      , to: req.body.email
       , template: 'welcome-email'
       }).save( function(err){
         if( !err ) console.log( job.id );
       });
+
+      queue.process('email', function(job, done){
+        const mailOptions = {
+          from: 'hacktivoverflow@email.com', // sender address
+          to: job.data.to, // list of receivers
+          subject: job.data.subject, // Subject line
+          html: `<p>Welcome to Hacktiv Overflow ${data.name}</p>`// plain text body
+        };
+
+        transporter.sendMail(mailOptions, function (err, info) {
+          if(err)
+            console.log(err)
+          else
+            console.log(info);
+        });
+      });
+
+      job.on('complete', function(result){
+        console.log('Job completed with data ', result);
+        job.remove()
+      }).on('failed attempt', function(errorMessage, doneAttempts){
+        console.log('Job failed');
+        job.remove()
+
+
+      }).on('failed', function(errorMessage){
+        console.log('Job failed');
+        job.remove()
+      })
       res.status(200).json({
         msg : "success registering user",
         data : data
@@ -99,6 +123,108 @@ module.exports = {
         msg : 'success finding users',
         data : data
       });
+    })
+    .catch(err=>{
+      res.status(500).json({
+        msg : "failed finding user",
+        err : err
+      });
+    });
+  },
+
+  facebookLogin : function(req,res){
+    User.find({
+      email : req.body.email
+    })
+    .populate('questions')
+    .populate('comments')
+    .exec()
+    .then(data=>{
+      if(data.length===0){
+        const obj = {
+          name : req.body.name,
+          email : req.body.email
+        }
+        User.create(obj)
+        .then(data=>{
+          const job = queue.create('email', {
+            subject: `welcome to Hacktiv Overflow, ${data.name}!`
+          , to: req.body.email
+          , template: 'welcome-email'
+          }).save( function(err){
+            if( !err ) console.log( job.id );
+          });
+
+          queue.process('email', function(job, done){
+            const mailOptions = {
+              from: 'hacktivoverflow@email.com', // sender address
+              to: job.data.to, // list of receivers
+              subject: job.data.subject, // Subject line
+              html: `<p>Welcome to Hacktiv Overflow ${data.name}</p>`// plain text body
+            };
+
+            transporter.sendMail(mailOptions, function (err, info) {
+              if(err)
+                console.log(err)
+              else
+                console.log(info);
+            });
+          });
+
+          job.on('complete', function(result){
+            console.log('Job completed with data ', result);
+            job.remove()
+          }).on('failed attempt', function(errorMessage, doneAttempts){
+            console.log('Job failed');
+            job.remove()
+
+
+          }).on('failed', function(errorMessage){
+            console.log('Job failed');
+            job.remove()
+          })
+          res.status(200).json({
+            msg : "success registering user",
+            data : data
+          });
+        })
+        .catch(err=>{
+          res.status(500).json({
+            msg : "failed registering user",
+            err : err
+          });
+        });
+      }
+      else {
+        User.findOne({
+          email : req.body.email
+        })
+        .then(user=>{
+            jwt.sign({
+              email : user.email,
+              name : user.name,
+              id : user._id
+            }, process.env.JWT_SECRET,( err,token )=>{
+              if( err ){
+                res.status( 500 ).json({
+                  msg : err.message
+                });
+              }
+              else{
+                res.status( 200 ).json({
+                  msg : 'login success',
+                  token : token
+                });
+              }
+            });
+        })
+        .catch(err=>{
+          res.status(500).json({
+            msg : "failed finding user",
+            err : err
+          });
+        });
+      }
     })
     .catch(err=>{
       res.status(500).json({

@@ -53,6 +53,11 @@ export default new Vuex.Store({
         })
     },
 
+    facebookLogin (context, token) {
+      localStorage.setItem('token', token)
+      context.commit('changeLoginStatus', token)
+    },
+
     checkToken (context) {
       const token = localStorage.getItem('token')
       axios({

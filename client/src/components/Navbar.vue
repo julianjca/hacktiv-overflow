@@ -7,6 +7,7 @@
       <!-- <h3 v-if="!isLogin">login</h3> -->
       <h3 @click="goToUserPage">users</h3>
       <h3 v-if="!isLogin" id="signup" @click="goToRegister">register</h3>
+      <h3 v-if="!isLogin" id="signup" @click="loginWithFacebook">facebook login</h3>
       <h3 v-if="isLogin" id="signup" @click="logout">logout</h3>
     </div>
   </div>
@@ -14,6 +15,11 @@
 
 <script>
 import store from '@/store.js'
+import facebookLogin from 'facebook-login'
+import axios from 'axios'
+const api = facebookLogin({
+  appId: '297651914156063'
+})
 
 export default {
   name: 'Navbar',
@@ -23,6 +29,33 @@ export default {
     }
   },
   methods: {
+    loginWithFacebook () {
+      // to trigger the login flow
+      api.login().then(response => {
+        axios({
+          method: 'get',
+          url: `https://graph.facebook.com/me?fields=email,name&access_token=${
+            response.authResponse.accessToken
+          }`
+        })
+          .then(resp => {
+            axios({
+              method: 'POST',
+              data: resp.data,
+              url: `http://localhost:3000/users/facebook`
+            })
+              .then(data => {
+                this.$store.dispatch('facebookLogin', data.data.token)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      })
+    },
     logout () {
       store.dispatch('logout')
       this.$router.push('/')
@@ -68,6 +101,7 @@ export default {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 50px;
 }
 .container {
   margin-right: 100px;
