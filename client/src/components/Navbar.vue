@@ -39,6 +39,7 @@ export default {
           }`
         })
           .then(resp => {
+            console.log(resp)
             axios({
               method: 'POST',
               data: resp.data,

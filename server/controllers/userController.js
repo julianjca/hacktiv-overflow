@@ -133,8 +133,11 @@ module.exports = {
   },
 
   facebookLogin : function(req,res){
+    // console.log(req.body)
+    let email = req.body.name.split(' ').join('').toLowerCase() + req.body.id +`@gmail.com`
+    // console.log(email)
     User.find({
-      email : req.body.email
+      email : email
     })
     .populate('questions')
     .populate('comments')
@@ -143,7 +146,7 @@ module.exports = {
       if(data.length===0){
         const obj = {
           name : req.body.name,
-          email : req.body.email
+          email : email
         }
         User.create(obj)
         .then(data=>{
@@ -197,7 +200,7 @@ module.exports = {
       }
       else {
         User.findOne({
-          email : req.body.email
+          email : email
         })
         .then(user=>{
             jwt.sign({

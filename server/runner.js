@@ -5,6 +5,9 @@ const kue = require('kue')
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+require('./models/question');
+require('./models/comment');
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -29,13 +32,27 @@ function findUser(){
   console.log('masuk')
 
   User.find({})
+  .populate('questions')
+  .exec()
  .then(response=>{
    response.forEach(user=>{
-    const mailOptions = {
+     let questions = ``
+     for(let i = 0;i<user.questions.length;i++){
+       questions+= `
+       <strong>Questions : ${user.questions[i].title}</strong>, <br>
+       Upvotes : ${user.questions[i].upvotes.length}, <br>
+       Downvotes : ${user.questions[i].downvotes.length},
+       `
+     }
+
+     const mailOptions = {
       from: 'hacktivoverflow@email.com', // sender address
       to: user.email, // list of receivers
       subject: `Hello ${user.name}`, // Subject line
-      html: `<p></p>`// plain text body
+      html: `<p>
+      Stats For Your Questions This Week
+      ${questions}
+      </p>`// plain text body
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -45,7 +62,6 @@ function findUser(){
         console.log(info);
     });
    })
-
  })
  .catch(err=>{
    console.log(err)
@@ -54,6 +70,9 @@ function findUser(){
 
 findUser()
 
-// cron.schedule('* * * * * *', () => {
-//   console.log(data)
+// cron.schedule('0 35 17 * * *', () => {
+//   findUser()
+// },{
+//   scheduled: true,
+//   timezone: "Asia/Jakarta"
 // });
