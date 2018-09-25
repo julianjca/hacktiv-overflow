@@ -70,7 +70,7 @@ function findUser(){
 
 // findUser()
 
-cron.schedule('0 35 17 * * *', () => {
+cron.schedule('* * * * * 0', () => {
   findUser()
 },{
   scheduled: true,
