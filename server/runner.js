@@ -68,11 +68,11 @@ function findUser(){
  })
 }
 
-findUser()
+// findUser()
 
-// cron.schedule('0 35 17 * * *', () => {
-//   findUser()
-// },{
-//   scheduled: true,
-//   timezone: "Asia/Jakarta"
-// });
+cron.schedule('0 35 17 * * *', () => {
+  findUser()
+},{
+  scheduled: true,
+  timezone: "Asia/Jakarta"
+});
