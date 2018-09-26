@@ -24,7 +24,7 @@ export default {
       let self = this
       axios({
         method: 'PUT',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/comments/upvote/${
+        url: `https://rama.minimalistdeveloper.xyz/comments/upvote/${
           this.comment._id
         }`,
         headers: {
@@ -50,7 +50,7 @@ export default {
       let self = this
       axios({
         method: 'PUT',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/comments/downvote/${
+        url: `https://rama.minimalistdeveloper.xyz/comments/downvote/${
           this.comment._id
         }`,
         headers: {
@@ -76,7 +76,7 @@ export default {
       let self = this
       axios({
         method: 'DELETE',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/comments/${
+        url: `https://rama.minimalistdeveloper.xyz/comments/${
           this.comment._id
         }`,
         headers: {

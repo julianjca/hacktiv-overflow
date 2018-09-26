@@ -43,10 +43,16 @@ export default {
             axios({
               method: 'POST',
               data: resp.data,
-              url: `http://hacktivapi.minimalistdeveloper.xyz/users/facebook`
+              url: `https://rama.minimalistdeveloper.xyz/users/facebook`
             })
               .then(data => {
                 this.$store.dispatch('facebookLogin', data.data.token)
+                setTimeout(() => {
+                  store.dispatch('checkToken')
+                  setTimeout(() => {
+                    store.dispatch('getQuestions')
+                  }, 2000)
+                }, 5000)
               })
               .catch(err => {
                 console.log(err)

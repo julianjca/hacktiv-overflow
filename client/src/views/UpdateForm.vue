@@ -25,7 +25,7 @@ export default {
           title: this.title,
           body: this.body
         },
-        url: `http://hacktivapi.minimalistdeveloper.xyz/questions/${this.id}`
+        url: `https://rama.minimalistdeveloper.xyz/questions/${this.id}`
       })
         .then(response => {
           console.log(response)
