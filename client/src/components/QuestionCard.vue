@@ -55,9 +55,7 @@ export default {
       let self = this
       axios({
         method: 'PUT',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/questions/upvote/${
-          this.question._id
-        }`,
+        url: `http://localhost:3000/questions/upvote/${this.question._id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -78,9 +76,7 @@ export default {
       let self = this
       axios({
         method: 'PUT',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/questions/downvote/${
-          this.question._id
-        }`,
+        url: `http://localhost:3000/questions/downvote/${this.question._id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -110,9 +106,7 @@ export default {
       // let self = this
       axios({
         method: 'DELETE',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/questions/${
-          this.question._id
-        }`,
+        url: `http://localhost:3000/questions/${this.question._id}`,
         headers: {
           token: localStorage.getItem('token')
         }

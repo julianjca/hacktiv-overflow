@@ -28,7 +28,7 @@ export default {
       let self = this
       axios({
         method: 'POST',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/comments`,
+        url: `http://localhost:3000/comments`,
         headers: {
           token: localStorage.getItem('token')
         },
@@ -40,9 +40,7 @@ export default {
         .then(response => {
           axios({
             method: 'GET',
-            url: `http://hacktivapi.minimalistdeveloper.xyz/questions/${
-              this.id
-            }`
+            url: `http://localhost:3000/questions/${this.id}`
           })
             .then(response => {
               console.log(response)
@@ -64,7 +62,7 @@ export default {
       let self = this
       axios({
         method: 'GET',
-        url: `http://hacktivapi.minimalistdeveloper.xyz/questions/${this.id}`
+        url: `http://localhost:3000/questions/${this.id}`
       })
         .then(response => {
           console.log(response)
@@ -90,7 +88,7 @@ export default {
     let self = this
     axios({
       method: 'GET',
-      url: `http://hacktivapi.minimalistdeveloper.xyz/questions/${this.id}`
+      url: `http://localhost:3000/questions/${this.id}`
     })
       .then(response => {
         console.log(response)

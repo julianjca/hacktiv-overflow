@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-const baseUrl = `http://hacktivapi.minimalistdeveloper.xyz/`
+const baseUrl = `http://localhost:3000/`
 
 Vue.use(Vuex)
 

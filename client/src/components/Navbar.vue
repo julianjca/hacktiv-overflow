@@ -43,7 +43,7 @@ export default {
             axios({
               method: 'POST',
               data: resp.data,
-              url: `http://hacktivapi.minimalistdeveloper.xyz/users/facebook`
+              url: `http://localhost:3000/users/facebook`
             })
               .then(data => {
                 this.$store.dispatch('facebookLogin', data.data.token)
