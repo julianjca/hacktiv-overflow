@@ -34,6 +34,8 @@ export default {
         .then(response => {
           console.log(response)
           self.alreadyUpvote = true
+          self.alreadyDownvote = false
+
           setTimeout(() => {
             self.$emit('fetch-comment')
             store.dispatch('getQuestions')
@@ -58,6 +60,8 @@ export default {
         .then(response => {
           console.log(response)
           self.alreadyDownvote = true
+          self.alreadyUpvote = false
+
           setTimeout(() => {
             store.dispatch('getQuestions')
             self.$emit('fetch-comment')
