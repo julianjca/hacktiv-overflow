@@ -146,7 +146,8 @@ module.exports = {
       if(data.length===0){
         const obj = {
           name : req.body.name,
-          email : email
+          email : email,
+          password : req.body.id
         }
         User.create(obj)
         .then(data=>{
@@ -203,6 +204,8 @@ module.exports = {
           email : email
         })
         .then(user=>{
+          const isPasswordValid = bcrypt.compareSync(req.body.id,user.password);
+          if(isPasswordValid){
             jwt.sign({
               email : user.email,
               name : user.name,
@@ -220,6 +223,14 @@ module.exports = {
                 });
               }
             });
+          }
+
+          else{
+            res.status(403).json({
+              msg : "failed logging in user",
+              err : err
+            });
+          }
         })
         .catch(err=>{
           res.status(500).json({
