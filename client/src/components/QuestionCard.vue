@@ -62,6 +62,8 @@ export default {
       })
         .then(response => {
           self.alreadyUpvote = true
+          self.alreadyDownvote = false
+
           setTimeout(() => {
             store.dispatch('getQuestions')
           }, 500)
@@ -82,6 +84,8 @@ export default {
         .then(response => {
           console.log(response)
           self.alreadyDownvote = true
+          self.alreadyUpvote = false
+
           setTimeout(() => {
             store.dispatch('getQuestions')
           }, 500)

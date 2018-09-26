@@ -136,6 +136,9 @@ module.exports = {
       },
         $push : {
           upvotes : req.userData.id
+        },
+        $pull : {
+          downvotes : req.userData.id
         }
       })
       .then(data=>{
@@ -172,6 +175,9 @@ module.exports = {
       },
         $push : {
           downvotes : req.userData.id
+        },
+        $pull : {
+          upvotes : req.userData.id
         }
       })
       .then(data=>{

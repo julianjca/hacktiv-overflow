@@ -29,8 +29,6 @@ db.once('open', function() {
 
 let data = []
 function findUser(){
-  console.log('masuk')
-
   User.find({})
   .populate('questions')
   .exec()
