@@ -35,6 +35,9 @@ export default {
     questions () {
       return this.$store.state.questions
     }
+  },
+  created () {
+    this.$store.dispatch('checkToken')
   }
 }
 </script>

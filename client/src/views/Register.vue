@@ -40,7 +40,7 @@ export default {
       email: '',
       password: '',
       name: '',
-      baseUrl: `http://hacktivapi.minimalistdeveloper.xyz/`
+      baseUrl: `https://rama.minimalistdeveloper.xyz/`
     }
   }
 }
