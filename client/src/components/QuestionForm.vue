@@ -24,7 +24,7 @@ export default {
           title: this.title,
           body: this.body
         },
-        url: `http://localhost:3000/questions`
+        url: `http://hacktivapi.minimalistdeveloper.xyz/questions`
       })
         .then(response => {
           console.log(response)

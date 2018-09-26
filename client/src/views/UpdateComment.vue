@@ -23,7 +23,7 @@ export default {
         data: {
           comment: this.comment
         },
-        url: `http://localhost:3000/comments/${this.id}`
+        url: `http://hacktivapi.minimalistdeveloper.xyz/comments/${this.id}`
       })
         .then(response => {
           console.log(response)

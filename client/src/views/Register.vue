@@ -40,7 +40,7 @@ export default {
       email: '',
       password: '',
       name: '',
-      baseUrl: `http://localhost:3000/`
+      baseUrl: `http://hacktivapi.minimalistdeveloper.xyz/`
     }
   }
 }

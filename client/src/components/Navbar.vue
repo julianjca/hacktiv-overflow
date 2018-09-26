@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/2000px-Stack_Overflow_logo.svg.png" alt="" @click="homePage">
+      <img src="../assets/logo1.png" alt="" @click="homePage">
     </div>
     <div class="container">
       <!-- <h3 v-if="!isLogin">login</h3> -->
@@ -43,7 +43,7 @@ export default {
             axios({
               method: 'POST',
               data: resp.data,
-              url: `http://localhost:3000/users/facebook`
+              url: `http://hacktivapi.minimalistdeveloper.xyz/users/facebook`
             })
               .then(data => {
                 this.$store.dispatch('facebookLogin', data.data.token)
